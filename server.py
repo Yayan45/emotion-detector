@@ -7,22 +7,27 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def render_index_page():
+def index():
+    """Render home page"""
     return render_template("index.html")
 
 
 @app.route("/emotionDetector")
-def emotion_detector_route():
+def detect():
+    """Handle emotion detection"""
     text = request.args.get("text")
 
+    # error handling wajib (HARUS PERSIS)
     if not text:
         return "Invalid input! Try again."
 
     result = emotion_detector(text)
 
+    # kalau API gagal
     if result is None:
         return "Error processing request"
 
+    # format output HARUS seperti ini
     return (
         f"For the given statement, the system response is "
         f"'anger': {result['anger']}, "
