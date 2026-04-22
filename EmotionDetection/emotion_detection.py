@@ -20,7 +20,6 @@ def emotion_detector(text_to_analyse):
     }
 
     try:
-        # 🔥 tambahkan timeout supaya tidak nunggu selamanya
         response = requests.post(url, json=input_json, headers=headers, timeout=3)
 
         if response.status_code == 200:
@@ -41,7 +40,7 @@ def emotion_detector(text_to_analyse):
             return None
 
     except:
-        # 🔥 fallback kalau API mati / timeout
+        # fallback kalau API mati / timeout
         return {
             "anger": 0.1,
             "disgust": 0.1,

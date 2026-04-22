@@ -1,4 +1,4 @@
-"""Flask server for Emotion Detector"""
+"""Flask server for Emotion Detector application."""
 
 from flask import Flask, request, render_template
 from EmotionDetection.emotion_detection import emotion_detector
@@ -8,26 +8,23 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    """Render home page"""
+    """Render the home page."""
     return render_template("index.html")
 
 
 @app.route("/emotionDetector")
 def detect():
-    """Handle emotion detection"""
+    """Handle emotion detection request."""
     text = request.args.get("text")
 
-    # error handling wajib (HARUS PERSIS)
     if not text:
         return "Invalid input! Try again."
 
     result = emotion_detector(text)
 
-    # kalau API gagal
     if result is None:
         return "Error processing request"
 
-    # format output HARUS seperti ini
     return (
         f"For the given statement, the system response is "
         f"'anger': {result['anger']}, "
@@ -41,3 +38,4 @@ def detect():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    
